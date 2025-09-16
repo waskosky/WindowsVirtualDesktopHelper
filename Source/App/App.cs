@@ -279,6 +279,14 @@ namespace WindowsVirtualDesktopHelper {
 			}
 		}
 
+		public void MoveActiveWindowToDesktop(int number) {
+			try {
+				VDAPI.MoveActiveWindowToDesktop(number);
+			} catch(Exception e) {
+				Util.Logging.WriteLine("App: Error: MoveActiveWindowToDesktop: " + e.Message);
+			}
+		}
+
 		#endregion
 
 		#region Window Methods
@@ -365,6 +373,7 @@ namespace WindowsVirtualDesktopHelper {
 			// - DesktopBackward
 			// - PreviousDesktop
 			// - Desktop1...Desktop99
+			// - MoveWindowToDesktop1...MoveWindowToDesktop99
 			try {
 
 				action = action.Trim().ToLower();
@@ -381,6 +390,14 @@ namespace WindowsVirtualDesktopHelper {
 					var desktopNumber = 0;
 					if(int.TryParse(action.Replace("desktop", ""), out desktopNumber)) {
 						this.SwitchToDesktop(desktopNumber - 1);
+						return null;
+					} else {
+						throw new Exception("invalid desktop number");
+					}
+				} else if(action.StartsWith("movewindowtodesktop")) {
+					var desktopNumber = 0;
+					if(int.TryParse(action.Replace("movewindowtodesktop", ""), out desktopNumber)) {
+						this.MoveActiveWindowToDesktop(desktopNumber - 1);
 						return null;
 					} else {
 						throw new Exception("invalid desktop number");
@@ -451,6 +468,17 @@ namespace WindowsVirtualDesktopHelper {
 				var hotKey = Settings.GetString("feature.useHotKeyToSwitchDesktopBackward.hotkey");
 				if(hotKey != null && hotKey != "") {
 					hotkeys.Add($"{hotKey} = DesktopBackward");
+				}
+			}
+
+			// Move active window to desktop via number
+			if(Settings.GetBool("feature.useHotKeyToMoveWindowToDesktopNumber")) {
+				var hotKey = Settings.GetString("feature.useHotKeyToMoveWindowToDesktopNumber.hotkey");
+				if(hotKey != null && hotKey != "") {
+					for(var i = 1; i <= 9; i++) {
+						hotkeys.Add($"{hotKey} + D{i} = MoveWindowToDesktop{i}");
+						hotkeys.Add($"{hotKey} + NumPad{i} = MoveWindowToDesktop{i}");
+					}
 				}
 			}
 

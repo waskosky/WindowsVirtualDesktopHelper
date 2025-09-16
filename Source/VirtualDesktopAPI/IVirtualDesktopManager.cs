@@ -2,20 +2,23 @@
 // Contributors: Dan Krusi (https://github.com/dankrusi), MScholtes (https://github.com/MScholtes), Flaflo (https://github.com/Flaflo)
 // License: MIT License (https://github.com/zgdump/windows-virtualdesktopindicator/blob/main/LICENSE)
 
-namespace WindowsVirtualDesktopHelper.VirtualDesktopAPI {
-	public interface IVirtualDesktopManager {
-		uint Current();
+	namespace WindowsVirtualDesktopHelper.VirtualDesktopAPI {
+		public interface IVirtualDesktopManager {
+			uint Current();
 
-		int DisplayCount();
+			int DisplayCount();
 
-		void SwitchForward();
+			void SwitchForward();
 
-		void SwitchBackward();
+			void SwitchBackward();
 
-		void SwitchToDesktop(int number);
+			void SwitchToDesktop(int number);
 
-		string CurrentDisplayName();
+			// Move the currently active/foreground window to the given desktop index (0-based)
+			void MoveActiveWindowToDesktop(int number);
 
-		uint GetVDCount();
+			string CurrentDisplayName();
+
+			uint GetVDCount();
+		}
 	}
-}

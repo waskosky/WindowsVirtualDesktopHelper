@@ -73,6 +73,10 @@ namespace WindowsVirtualDesktopHelper {
 			RegisterDefault("feature.useHotKeyToJumpToPreviousDesktop", false);
 			RegisterDefault("feature.useHotKeyToJumpToPreviousDesktop.hotkey", "Alt + Tilde");
 
+			// Feature: useHotKeyToMoveWindowToDesktopNumber
+			RegisterDefault("feature.useHotKeyToMoveWindowToDesktopNumber", true, "If enabled, a hotkey (by default Alt + Shift + number) moves the currently focused window to that desktop.", "v2.2");
+			RegisterDefault("feature.useHotKeyToMoveWindowToDesktopNumber.hotkey", "Alt + Shift");
+
 			// Feature: useHotKeyToSwitchDesktopForward
 			RegisterDefault("feature.useHotKeyToSwitchDesktopForward", false);
 			RegisterDefault("feature.useHotKeyToSwitchDesktopForward.hotkey", "Alt + Right");

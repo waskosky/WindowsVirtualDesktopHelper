@@ -77,8 +77,10 @@ namespace WindowsVirtualDesktopHelper {
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.panelMove);
             this.groupBox1.Controls.Add(this.panel3);
             this.groupBox1.Controls.Add(this.checkBoxUseHotKeysToJumpToDesktop);
+            this.groupBox1.Controls.Add(this.checkBoxUseHotKeysToMoveWindowToDesktop);
             this.groupBox1.Controls.Add(this.checkBoxOverlayShowOnAllMonitors);
             this.groupBox1.Controls.Add(this.checkBoxShowDesktopNameInitial);
             this.groupBox1.Controls.Add(this.checkBoxClickDesktopNumberTaskView);
@@ -93,7 +95,7 @@ namespace WindowsVirtualDesktopHelper {
             this.groupBox1.Margin = new System.Windows.Forms.Padding(6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(6);
-            this.groupBox1.Size = new System.Drawing.Size(757, 567);
+            this.groupBox1.Size = new System.Drawing.Size(757, 650);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Features";
@@ -109,6 +111,88 @@ namespace WindowsVirtualDesktopHelper {
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(660, 46);
             this.panel3.TabIndex = 20;
+            // 
+            // checkBoxUseHotKeysToMoveWindowToDesktop
+            // 
+            this.checkBoxUseHotKeysToMoveWindowToDesktop = new System.Windows.Forms.CheckBox();
+            this.checkBoxUseHotKeysToMoveWindowToDesktop.AutoSize = true;
+            this.checkBoxUseHotKeysToMoveWindowToDesktop.Location = new System.Drawing.Point(28, 562);
+            this.checkBoxUseHotKeysToMoveWindowToDesktop.Margin = new System.Windows.Forms.Padding(6);
+            this.checkBoxUseHotKeysToMoveWindowToDesktop.Name = "checkBoxUseHotKeysToMoveWindowToDesktop";
+            this.checkBoxUseHotKeysToMoveWindowToDesktop.Size = new System.Drawing.Size(451, 29);
+            this.checkBoxUseHotKeysToMoveWindowToDesktop.TabIndex = 25;
+            this.checkBoxUseHotKeysToMoveWindowToDesktop.Text = "Use Hot Keys to Move Window to Desktop";
+            this.checkBoxUseHotKeysToMoveWindowToDesktop.UseVisualStyleBackColor = true;
+            this.checkBoxUseHotKeysToMoveWindowToDesktop.CheckedChanged += new System.EventHandler(this.checkBoxUseHotKeysToMoveWindowToDesktop_CheckedChanged);
+            // 
+            // panelMove
+            // 
+            this.panelMove = new System.Windows.Forms.Panel();
+            this.panelMove.Controls.Add(this.radioButtonUseHotKeysToMoveWindowToDesktopAlt);
+            this.panelMove.Controls.Add(this.radioButtonUseHotKeysToMoveWindowToDesktopAltShift);
+            this.panelMove.Controls.Add(this.radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt);
+            this.panelMove.Controls.Add(this.radioButtonUseHotKeysToMoveWindowToDesktopCtrl);
+            this.panelMove.Location = new System.Drawing.Point(73, 601);
+            this.panelMove.Margin = new System.Windows.Forms.Padding(6);
+            this.panelMove.Name = "panelMove";
+            this.panelMove.Size = new System.Drawing.Size(660, 46);
+            this.panelMove.TabIndex = 24;
+            // 
+            // radioButtonUseHotKeysToMoveWindowToDesktopAlt
+            // 
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAlt = new System.Windows.Forms.RadioButton();
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAlt.AutoSize = true;
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAlt.Location = new System.Drawing.Point(16, 9);
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAlt.Margin = new System.Windows.Forms.Padding(6);
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAlt.Name = "radioButtonUseHotKeysToMoveWindowToDesktopAlt";
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAlt.Size = new System.Drawing.Size(84, 29);
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAlt.TabIndex = 5;
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAlt.TabStop = true;
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAlt.Text = "Alt+#";
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAlt.UseVisualStyleBackColor = true;
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAlt.CheckedChanged += new System.EventHandler(this.radioButtonUseHotKeysToMoveWindowToDesktopAlt_CheckedChanged);
+            // 
+            // radioButtonUseHotKeysToMoveWindowToDesktopAltShift
+            // 
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAltShift = new System.Windows.Forms.RadioButton();
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAltShift.AutoSize = true;
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAltShift.Location = new System.Drawing.Point(420, 9);
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAltShift.Margin = new System.Windows.Forms.Padding(6);
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAltShift.Name = "radioButtonUseHotKeysToMoveWindowToDesktopAltShift";
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAltShift.Size = new System.Drawing.Size(166, 29);
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAltShift.TabIndex = 9;
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAltShift.TabStop = true;
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAltShift.Text = "Alt+Shift+#";
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAltShift.UseVisualStyleBackColor = true;
+            this.radioButtonUseHotKeysToMoveWindowToDesktopAltShift.CheckedChanged += new System.EventHandler(this.radioButtonUseHotKeysToMoveWindowToDesktopAltShift_CheckedChanged);
+            // 
+            // radioButtonUseHotKeysToMoveWindowToDesktopCtrl
+            // 
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrl = new System.Windows.Forms.RadioButton();
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrl.AutoSize = true;
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrl.Location = new System.Drawing.Point(104, 9);
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrl.Margin = new System.Windows.Forms.Padding(6);
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrl.Name = "radioButtonUseHotKeysToMoveWindowToDesktopCtrl";
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrl.Size = new System.Drawing.Size(90, 29);
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrl.TabIndex = 6;
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrl.TabStop = true;
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrl.Text = "Ctrl+#";
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrl.UseVisualStyleBackColor = true;
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrl.CheckedChanged += new System.EventHandler(this.radioButtonUseHotKeysToMoveWindowToDesktopCtrl_CheckedChanged);
+            // 
+            // radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt
+            // 
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt = new System.Windows.Forms.RadioButton();
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt.AutoSize = true;
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt.Location = new System.Drawing.Point(206, 9);
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt.Margin = new System.Windows.Forms.Padding(6);
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt.Name = "radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt";
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt.Size = new System.Drawing.Size(141, 29);
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt.TabIndex = 8;
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt.TabStop = true;
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt.Text = "Ctrl+Alt+#";
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt.UseVisualStyleBackColor = true;
+            this.radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt.CheckedChanged += new System.EventHandler(this.radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt_CheckedChanged);
             // 
             // radioButtonUseHotKeysToJumpToDesktopAlt
             // 
@@ -473,7 +557,7 @@ namespace WindowsVirtualDesktopHelper {
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(805, 713);
+            this.ClientSize = new System.Drawing.Size(805, 780);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -533,5 +617,11 @@ namespace WindowsVirtualDesktopHelper {
 		private System.Windows.Forms.RadioButton radioButtonUseHotKeysToJumpToDesktopCtrlAlt;
 		private System.Windows.Forms.RadioButton radioButtonUseHotKeysToJumpToDesktopCtrl;
 		private System.Windows.Forms.CheckBox checkBoxUseHotKeysToJumpToDesktop;
+		private System.Windows.Forms.CheckBox checkBoxUseHotKeysToMoveWindowToDesktop;
+		private System.Windows.Forms.Panel panelMove;
+		private System.Windows.Forms.RadioButton radioButtonUseHotKeysToMoveWindowToDesktopAlt;
+		private System.Windows.Forms.RadioButton radioButtonUseHotKeysToMoveWindowToDesktopAltShift;
+		private System.Windows.Forms.RadioButton radioButtonUseHotKeysToMoveWindowToDesktopCtrl;
+		private System.Windows.Forms.RadioButton radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt;
 	}
 }

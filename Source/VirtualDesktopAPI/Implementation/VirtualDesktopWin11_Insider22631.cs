@@ -85,6 +85,14 @@ namespace WindowsVirtualDesktopHelper.VirtualDesktopAPI.Implementation {
 
 		}
 
+		public void MoveActiveWindowToDesktop(int number) {
+			try {
+				var dest = DesktopManager.GetDesktop(number);
+				if(dest == null) return;
+				dest.MoveActiveWindow();
+			} catch { }
+		}
+
 		#endregion
 
 		private static string DesktopNameFromDesktop(IVirtualDesktop desktop) {

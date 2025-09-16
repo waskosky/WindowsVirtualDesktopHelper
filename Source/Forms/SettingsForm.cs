@@ -35,6 +35,7 @@ namespace WindowsVirtualDesktopHelper {
 			this.checkBoxOverlayShowOnAllMonitors.Checked = Settings.GetBool("feature.showDesktopSwitchOverlay.showOnAllMonitors");
 			this.checkBoxClickDesktopNumberTaskView.Checked = Settings.GetBool("feature.showDesktopNumberInIconTray.clickToOpenTaskView");
 			this.checkBoxUseHotKeysToJumpToDesktop.Checked = Settings.GetBool("feature.useHotKeyToJumpToDesktopNumber");
+			this.checkBoxUseHotKeysToMoveWindowToDesktop.Checked = Settings.GetBool("feature.useHotKeyToMoveWindowToDesktopNumber");
 			this.radioButtonOverlayLongDuration.Checked = Settings.GetInt("feature.showDesktopSwitchOverlay.duration") == 3000;
 			this.radioButtonOverlayMediumDuration.Checked = Settings.GetInt("feature.showDesktopSwitchOverlay.duration") == 2000;
 			this.radioButtonOverlayShortDuration.Checked = Settings.GetInt("feature.showDesktopSwitchOverlay.duration") == 1000;
@@ -53,8 +54,14 @@ namespace WindowsVirtualDesktopHelper {
 			this.radioButtonUseHotKeysToJumpToDesktopCtrl.Checked = Settings.GetString("feature.useHotKeyToJumpToDesktopNumber.hotkey") == "Ctrl";
 			this.radioButtonUseHotKeysToJumpToDesktopCtrlAlt.Checked = Settings.GetString("feature.useHotKeyToJumpToDesktopNumber.hotkey") == "Ctrl + Alt";
 
+			this.radioButtonUseHotKeysToMoveWindowToDesktopAlt.Checked = Settings.GetString("feature.useHotKeyToMoveWindowToDesktopNumber.hotkey") == "Alt";
+			this.radioButtonUseHotKeysToMoveWindowToDesktopAltShift.Checked = Settings.GetString("feature.useHotKeyToMoveWindowToDesktopNumber.hotkey") == "Alt + Shift";
+			this.radioButtonUseHotKeysToMoveWindowToDesktopCtrl.Checked = Settings.GetString("feature.useHotKeyToMoveWindowToDesktopNumber.hotkey") == "Ctrl";
+			this.radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt.Checked = Settings.GetString("feature.useHotKeyToMoveWindowToDesktopNumber.hotkey") == "Ctrl + Alt";
+
 			checkBoxShowOverlay_CheckedChanged(this, null);
 			checkBoxUseHotKeysToJumpToDesktop_CheckedChanged(this, null);
+			checkBoxUseHotKeysToMoveWindowToDesktop_CheckedChanged(this, null);
 		}
 		
 		private void SaveSettingsFromUI() {
@@ -166,6 +173,18 @@ namespace WindowsVirtualDesktopHelper {
 			App.Instance.SetupHotKeys();
 		}
 
+		private void checkBoxUseHotKeysToMoveWindowToDesktop_CheckedChanged(object sender, EventArgs e) {
+			if(IsLoading) return;
+			Settings.SetBool("feature.useHotKeyToMoveWindowToDesktopNumber", this.checkBoxUseHotKeysToMoveWindowToDesktop.Checked);
+
+			radioButtonUseHotKeysToMoveWindowToDesktopAlt.Enabled = checkBoxUseHotKeysToMoveWindowToDesktop.Checked;
+			radioButtonUseHotKeysToMoveWindowToDesktopAltShift.Enabled = checkBoxUseHotKeysToMoveWindowToDesktop.Checked;
+			radioButtonUseHotKeysToMoveWindowToDesktopCtrl.Enabled = checkBoxUseHotKeysToMoveWindowToDesktop.Checked;
+			radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt.Enabled = checkBoxUseHotKeysToMoveWindowToDesktop.Checked;
+
+			App.Instance.SetupHotKeys();
+		}
+
 		private void radioButtonUseHotKeysToJumpToDesktopAlt_CheckedChanged(object sender, EventArgs e) {
 			if(IsLoading) return;
 			if((sender as RadioButton).Checked == true) {
@@ -194,6 +213,38 @@ namespace WindowsVirtualDesktopHelper {
 			if(IsLoading) return;
 			if((sender as RadioButton).Checked == true) {
 				Settings.SetString("feature.useHotKeyToJumpToDesktopNumber.hotkey", "Alt + Shift");
+				App.Instance.SetupHotKeys();
+			}
+		}
+
+		private void radioButtonUseHotKeysToMoveWindowToDesktopAlt_CheckedChanged(object sender, EventArgs e) {
+			if(IsLoading) return;
+			if((sender as RadioButton).Checked == true) {
+				Settings.SetString("feature.useHotKeyToMoveWindowToDesktopNumber.hotkey", "Alt");
+				App.Instance.SetupHotKeys();
+			}
+		}
+
+		private void radioButtonUseHotKeysToMoveWindowToDesktopCtrl_CheckedChanged(object sender, EventArgs e) {
+			if(IsLoading) return;
+			if((sender as RadioButton).Checked == true) {
+				Settings.SetString("feature.useHotKeyToMoveWindowToDesktopNumber.hotkey", "Ctrl");
+				App.Instance.SetupHotKeys();
+			}
+		}
+
+		private void radioButtonUseHotKeysToMoveWindowToDesktopCtrlAlt_CheckedChanged(object sender, EventArgs e) {
+			if(IsLoading) return;
+			if((sender as RadioButton).Checked == true) {
+				Settings.SetString("feature.useHotKeyToMoveWindowToDesktopNumber.hotkey", "Ctrl + Alt");
+				App.Instance.SetupHotKeys();
+			}
+		}
+
+		private void radioButtonUseHotKeysToMoveWindowToDesktopAltShift_CheckedChanged(object sender, EventArgs e) {
+			if(IsLoading) return;
+			if((sender as RadioButton).Checked == true) {
+				Settings.SetString("feature.useHotKeyToMoveWindowToDesktopNumber.hotkey", "Alt + Shift");
 				App.Instance.SetupHotKeys();
 			}
 		}

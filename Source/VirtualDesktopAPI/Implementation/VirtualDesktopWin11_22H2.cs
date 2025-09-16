@@ -59,6 +59,23 @@ namespace WindowsVirtualDesktopHelper.VirtualDesktopAPI.Implementation {
 			DesktopManager.VirtualDesktopManagerInternal.SwitchDesktop(IntPtr.Zero, desktop);
 		}
 
+		public void MoveActiveWindowToDesktop(int number) {
+			try {
+				var dest = DesktopManager.GetDesktopAtIndex(number);
+				if(dest == null) return;
+				var hwnd = WindowsVirtualDesktopHelper.Util.OS.GetForegroundWindow();
+				if(hwnd == IntPtr.Zero) return;
+				var id = dest.GetId();
+				try {
+					DesktopManager.VirtualDesktopManager.MoveWindowToDesktop(hwnd, ref id);
+				} catch {
+					IApplicationView view;
+					DesktopManager.ApplicationViewCollection.GetViewForHwnd(hwnd, out view);
+					DesktopManager.VirtualDesktopManagerInternal.MoveViewToDesktop(view, dest);
+				}
+			} catch { }
+		}
+
 		#endregion
 
 		#region Implementation
@@ -85,6 +102,7 @@ namespace WindowsVirtualDesktopHelper.VirtualDesktopAPI.Implementation {
 		internal static class Guids {
 			public static readonly Guid CLSID_ImmersiveShell = new Guid(GUID_CLSID_ImmersiveShell);
 			public static readonly Guid CLSID_VirtualDesktopManagerInternal = new Guid(GUID_CLSID_VirtualDesktopManagerInternal);
+			public static readonly Guid CLSID_VirtualDesktopManager = new Guid("AA509086-5CA9-4C25-8F95-589D3C07B48A");
 		}
 
 		#endregion
@@ -226,6 +244,32 @@ namespace WindowsVirtualDesktopHelper.VirtualDesktopAPI.Implementation {
 
 		[ComImport]
 		[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+		[Guid("1841C6D7-4F9D-42C0-AF41-8747538F10E5")]
+		internal interface IApplicationViewCollection {
+			int GetViews(out IObjectArray array);
+			int GetViewsByZOrder(out IObjectArray array);
+			int GetViewsByAppUserModelId(string id, out IObjectArray array);
+			int GetViewForHwnd(IntPtr hwnd, out IApplicationView view);
+			int GetViewForApplication(object application, out IApplicationView view);
+			int GetViewForAppUserModelId(string id, out IApplicationView view);
+			int GetViewInFocus(out IntPtr view);
+			int Unknown1(out IntPtr view);
+			void RefreshCollection();
+			int RegisterForApplicationViewChanges(object listener, out int cookie);
+			int UnregisterForApplicationViewChanges(int cookie);
+		}
+
+		[ComImport]
+		[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+		[Guid("A5CD92FF-29BE-454C-8D04-D82879FB3F1B")]
+		internal interface IVirtualDesktopManager {
+			bool IsWindowOnCurrentVirtualDesktop(IntPtr topLevelWindow);
+			Guid GetWindowDesktopId(IntPtr topLevelWindow);
+			void MoveWindowToDesktop(IntPtr topLevelWindow, ref Guid desktopId);
+		}
+
+		[ComImport]
+		[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 		[Guid(GUID_IServiceProvider10)]
 		internal interface IServiceProvider10 {
 			[return: MarshalAs(UnmanagedType.IUnknown)]
@@ -238,10 +282,14 @@ namespace WindowsVirtualDesktopHelper.VirtualDesktopAPI.Implementation {
 
 		internal static class DesktopManager {
 			internal static IVirtualDesktopManagerInternal VirtualDesktopManagerInternal;
+			internal static IVirtualDesktopManager VirtualDesktopManager;
+			internal static IApplicationViewCollection ApplicationViewCollection;
 
 			static DesktopManager() {
 				var shell = (IServiceProvider10)Activator.CreateInstance(Type.GetTypeFromCLSID(Guids.CLSID_ImmersiveShell));
 				VirtualDesktopManagerInternal = (IVirtualDesktopManagerInternal)shell.QueryService(Guids.CLSID_VirtualDesktopManagerInternal, typeof(IVirtualDesktopManagerInternal).GUID);
+				VirtualDesktopManager = (IVirtualDesktopManager)Activator.CreateInstance(Type.GetTypeFromCLSID(Guids.CLSID_VirtualDesktopManager));
+				ApplicationViewCollection = (IApplicationViewCollection)shell.QueryService(typeof(IApplicationViewCollection).GUID, typeof(IApplicationViewCollection).GUID);
 			}
 
 			internal static int GetDesktopIndex(IVirtualDesktop desktop) {
